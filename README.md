@@ -12,3 +12,8 @@ Figure out scripting to download a bunch of such images
 4. Preprocessing:
 Patch sampling the images having high resolution to generated 5-10 images out of a single ones, deciding the base resolution [Preferably the same as the quickdraw resolution decided]
 Once the dataset is downloaded, figure out the organization so that it’s easy to schedule.
+
+DATA WHEREABOUTS:
+The data "QuickDraw" is downloaded in .npy format and stored in the the shared Google Drive. 
+Folder CS236>data_npy
+The script for processing the .npy files is in data_processing.py
