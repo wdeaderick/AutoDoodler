@@ -15,8 +15,8 @@ class Npy2Img(object):
         return len(self.file_list)
 
     def create_data_dir(self):
-        train_data_dir="./trainX/"
-        test_data_dir="./testX/"
+        train_data_dir="./trainA/"
+        test_data_dir="./testA/"
         if not os.path.exists(train_data_dir):
             os.makedirs(train_data_dir)
         self.train_directory=train_data_dir
@@ -75,7 +75,8 @@ class Npy2Img(object):
             #print("{}: file shape={}".format(item,file_i.shape))
             batch_to_chose=np.random.choice(batch_i,P)
             for i in batch_to_chose:
-                scm.imsave(self.train_directory+'output_{}-{}.png'.format(idx,i),np.invert(file_i[i,:,:]))
+                #scm.imsave(self.train_directory+'output_{}-{}.png'.format(idx,i),np.invert(file_i[i,:,:]))
+                scm.imsave(self.train_directory+'output_{}-{}.jpg'.format(idx,i),np.invert(file_i[i,:,:]))
             idx+=1
         idx=0
         for item in test_files_to_load:
@@ -86,7 +87,8 @@ class Npy2Img(object):
             file_i=file_i.reshape(batch_i,newd_i,newd_i)
             batch_to_chose=np.random.choice(batch_i,P)
             for i in batch_to_chose:
-                scm.imsave(self.test_directory+'output_{}-{}.png'.format(idx,i),np.invert(file_i[i,:,:]))
+                #scm.imsave(self.test_directory+'output_{}-{}.png'.format(idx,i),np.invert(file_i[i,:,:]))
+                scm.imsave(self.test_directory+'output_{}-{}.jpg'.format(idx,i),np.invert(file_i[i,:,:]))
             idx+=1
 
 
