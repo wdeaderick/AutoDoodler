@@ -3,7 +3,8 @@ import glob
 import random
 import scipy.misc as scm
 import os
-
+import skimage
+from skimage.transform import rescale, resize
 
 class Npy2Img(object):
     def __init__(self, file_dir):
@@ -55,15 +56,16 @@ class Npy2Img(object):
         self.label_list_npy()
         self.reject_labels()
 
-    def load_npy(self, Ntrain, Ntest,P):
+    def load_npy(self, Ntrain, Ntest,imsize,P):
         #load N random out of get_len
         self.accept_list=list(set(self.label_list_npy())-set(self.labels_to_reject))
-        print("len self.file_list=",len(self.file_list))
-        print("len self.accept_list", len(self.accept_list))
+        #print("len self.file_list=",len(self.file_list))
+        #print("len self.accept_list", len(self.accept_list))
         train_files_to_load=random.sample(self.accept_list,Ntrain)
         test_files_to_load=random.sample(self.accept_list,Ntest)
-        print("train_files_to_load=", train_files_to_load)
-        print("test_files_to_load=", test_files_to_load)
+        #print("train_files_to_load=", train_files_to_load)
+        #print("test_files_to_load=", test_files_to_load)
+
         #change files to load to get refactored classes
         idx=0
         for item in train_files_to_load:
@@ -71,12 +73,15 @@ class Npy2Img(object):
             file_i=np.load(file_path)
             batch_i, dim_i=file_i.shape
             newd_i=int(dim_i**0.5)
+            #newd_i=256
             file_i=file_i.reshape(batch_i,newd_i,newd_i)
             #print("{}: file shape={}".format(item,file_i.shape))
             batch_to_chose=np.random.choice(batch_i,P)
             for i in batch_to_chose:
-                #scm.imsave(self.train_directory+'output_{}-{}.png'.format(idx,i),np.invert(file_i[i,:,:]))
-                scm.imsave(self.train_directory+'output_{}-{}.jpg'.format(idx,i),np.invert(file_i[i,:,:]))
+                img=np.invert(file_i[i,:,:])
+                img=resize(img, (imsize,imsize))
+                #scm.imsave(self.train_directory+'output_{}-{}.png'.format(idx,i),img)
+                scm.imsave(self.train_directory+'output_{}-{}.jpg'.format(idx,i),img)
             idx+=1
         idx=0
         for item in test_files_to_load:
@@ -84,11 +89,14 @@ class Npy2Img(object):
             file_i=np.load(file_path)
             batch_i, dim_i=file_i.shape
             newd_i=int(dim_i**0.5)
+            #newd_i=256
             file_i=file_i.reshape(batch_i,newd_i,newd_i)
             batch_to_chose=np.random.choice(batch_i,P)
             for i in batch_to_chose:
-                #scm.imsave(self.test_directory+'output_{}-{}.png'.format(idx,i),np.invert(file_i[i,:,:]))
-                scm.imsave(self.test_directory+'output_{}-{}.jpg'.format(idx,i),np.invert(file_i[i,:,:]))
+                img=np.invert(file_i[i,:,:])
+                img=resize(img, (imsize,imsize))
+                #scm.imsave(self.test_directory+'output_{}-{}.png'.format(idx,i),img)
+                scm.imsave(self.test_directory+'output_{}-{}.jpg'.format(idx,i),img)
             idx+=1
 
 
@@ -99,9 +107,21 @@ npy2img=Npy2Img(root)
 l=npy2img.get_len()
 print("num of files:",l)
 npy2img.setup()
+#Guide params:
+#   Ntrain: classes to choose for train dataset
+#   Ntest: classes to choose for test dataset
+#   P: count to take P batches from total 10M batches each classes
 params={
         'Ntrain':100,
         'Ntest':10,
-        'P':500
+        'P':100
         }
+"""
+params={
+        'Ntrain':5,
+        'Ntest':5,
+        'imsize':64,
+        'P':5
+        }
+"""
 npy2img.load_npy(**params)
