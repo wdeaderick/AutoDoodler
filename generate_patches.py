@@ -23,5 +23,5 @@ for filename in original_files:
         for image_ind in range(500):
             curimage = patches[image_ind,:,:]
             curimage = normalize(curimage)
-            name = filename + "patch" + str(image_ind) + ".jpg"
+            name = filename[:-4] + "patch" + str(image_ind) + ".jpg"
             scipy.misc.imsave(name, curimage)
