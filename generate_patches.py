@@ -22,6 +22,7 @@ for filename in original_files:
         patches = image.extract_patches_2d(greyscale_map, (256, 256), max_patches = 500)
         for image_ind in range(500):
             curimage = patches[image_ind,:,:]
+            curimage = scipy.misc.imresize(curimage,size = (64,64)) 
             curimage = normalize(curimage)
-            name = filename + "patch" + str(image_ind) + ".jpg"
+            name = filename[:-4] + "patch" + str(image_ind) + ".jpg"
             scipy.misc.imsave(name, curimage)
