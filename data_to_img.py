@@ -102,7 +102,7 @@ class Npy2Img(object):
 
 
 
-root="/Users/aroushan/Documents/cs236/project/data_npy"
+root="./data_npy"
 npy2img=Npy2Img(root)
 l=npy2img.get_len()
 print("num of files:",l)
