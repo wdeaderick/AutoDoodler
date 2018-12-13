@@ -18,10 +18,15 @@ cd cyclegan
 
 ## Organize Datasets
 The dataset should be organized as 
+
 datasets/doodle/
+
 datasets/doodle/trainA
+
 datasets/doodle/trainB
+
 datasets/doodle/testA
+
 datasets/doodle/testB
 
 where trainA, testA have the hand-drawn sketch images. 
