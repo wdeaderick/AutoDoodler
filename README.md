@@ -17,3 +17,13 @@ DATA WHEREABOUTS:
 The data "QuickDraw" is downloaded in .npy format and stored in the the shared Google Drive. 
 Folder CS236>data_npy
 The script for processing the .npy files is in data_processing.py
+
+
+# Processing Steps
+python data_to_img.py
+
+for generating trainA, testA dataset
+
+python generate_patches.py
+
+for generating trainB, testB dataset
