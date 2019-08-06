@@ -1,4 +1,4 @@
-# Using a CycleGAN to translate between rough-hand sketches and flourishy doodle artwork.
+# Using a CycleGAN to translate between rough-handed sketches and flourish-y doodle artwork.
 1. CycleGAN implementation:
 Implement off the shelf CycleGAN - pytorch or tensorflow, whichever is easy to adapt.
 If learned weights are available, start off with visualizing the generated data from the Quickdraw dataset. Otherwise, we’ll train the CycleGAN
